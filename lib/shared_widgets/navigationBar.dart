@@ -5,8 +5,11 @@ import 'package:portfolio_project/screens/projects/Projects.dart';
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({Key? key}) : super(key: key);
 
+   
+
   @override
   Widget build(BuildContext context) {
+  
     var screenSize = MediaQuery.of(context).size;
     return Row(
       children: [
@@ -24,17 +27,17 @@ class TopNavigationBar extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, AboutMe.routeName);
                 },
-                child: const Text('About me'),
+                child: const Text('About me', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pushReplacementNamed(context, Projects.routeName);
                 },
-                child: const Text('Projects'),
+                child: const Text('Projects', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
               ),
               TextButton(
                 onPressed: () {},
-                child: const Text('Contact me'),
+                child: const Text('Contact me', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),),
               ),
             ],
           ),
