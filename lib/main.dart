@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       initialRoute: AboutMe.routeName,
       routes: {
         AboutMe.routeName: (context) =>  const AboutMe(),
-        Projects.routeName:(context) => const Projects(),
+        Projects.routeName:(context) =>  Projects(),
       },
     );
   }
