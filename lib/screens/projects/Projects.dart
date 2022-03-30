@@ -4,57 +4,62 @@ import 'package:portfolio_project/shared_widgets/contentCard.dart';
 import 'package:portfolio_project/shared_widgets/navigationBar.dart';
 
 class Projects extends StatelessWidget {
-  final data = ProjectsData();
   static const routeName = '/projects';
   Projects({Key? key}) : super(key: key);
 
-  double _settingAspectRation(Size screenSize) {
-
-    double aspectRatio = 1 / 1;
-
-    if (screenSize.width <= 375) {
-      aspectRatio = screenSize.width  / (screenSize.height * 1.5); //1.5
-    } else if (screenSize.width < 700) {
-      aspectRatio = screenSize.width / 2.8 / (screenSize.height / 4);
-    } else if (screenSize.width < 1390 && screenSize.width > 700) {
-      aspectRatio = screenSize.width / 2.9 / (screenSize.height / 2);
-    } else if (screenSize.width > 1390) {
-      aspectRatio = screenSize.width / 12 / (screenSize.height / 5);
-    } 
-
-    return aspectRatio;
-  }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    // print('Width: ${screenSize.width}');
-    // print('Height: ${screenSize.height}');
+    print('Width: ${screenSize.width}');
+    print('Height: ${screenSize.height}');
     return Scaffold(
       body: Column(
         children: [
           const TopNavigationBar(),
-          SizedBox(
-            height: screenSize.height * 0.9,
-            //width: screenSize.width,
-            //color: Colors.red,
-            child: GridView.builder(
-              itemCount: data.projects.length,
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 700,
-                childAspectRatio: _settingAspectRation(screenSize),
-                // mainAxisSpacing: 0,
-                // crossAxisSpacing: 0,
-              ),
-              itemBuilder: (context, index) => ContentCard(pasedIndex: index),
-            ),
-          ),
+          _buildAdaptiveLayout(screenSize, context),
         ],
       ),
     );
   }
 }
 
-// (screenSize.width < 700) ? screenSize.width / 2.8 / (screenSize.height / 4) : 
+// (screenSize.width < 700) ? screenSize.width / 2.8 / (screenSize.height / 4) :
 //               screenSize.width / 2.9 / (screenSize.height / 2) ,
+
+Widget _buildAdaptiveLayout(Size screenSize, BuildContext context) {
+  final data = ProjectsData();
+  // For smartphones <=450
+  if (screenSize.width <= 910) {
+    return SizedBox(
+      width: screenSize.width,
+      height: screenSize.height * 0.93,
+      child: ListView.builder(
+        itemCount: data.projects.length,
+        itemBuilder: (context, index) {
+          return ContentCard(pasedIndex: index);
+        },
+      ),
+    );
+    // For tablets 
+  } else {
+    return SizedBox(
+      width: screenSize.width,
+      height: screenSize.height * 0.93,
+      child: GridView.builder(
+        padding: const EdgeInsets.all(30),
+        itemCount: data.projects.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          //mainAxisExtent: 30,
+          // mainAxisSpacing: 30,
+          // crossAxisSpacing: 30,
+          childAspectRatio: 2/2.5,
+          crossAxisCount: screenSize.width <= 1360 ? 2 : 3,
+          ),
+        itemBuilder: (context, index) {
+          return ContentCard(pasedIndex: index);
+        }),
+    );
+  }
+}

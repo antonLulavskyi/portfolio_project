@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_project/screens/about_me/aboutMe.dart';
+import 'package:portfolio_project/screens/contact_me/ContactMe.dart';
 import 'package:portfolio_project/screens/projects/Projects.dart';
 
 void main() {
@@ -24,9 +25,6 @@ Map<int, Color> color = const {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,6 +38,8 @@ class MyApp extends StatelessWidget {
       routes: {
         AboutMe.routeName: (context) =>  const AboutMe(),
         Projects.routeName:(context) =>  Projects(),
+        ContactMe.routeName:(context) => const ContactMe(),
+       
       },
     );
   }
